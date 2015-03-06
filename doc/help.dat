@@ -1,0 +1,18 @@
+This is the finite difference modeing code
+Input parameters are
+	nx      	The dimension of the x direction
+	nz		The dimension of the z direction
+	dx		The stepsize of the x direction
+	dz		The stepsize of the z direction
+	ne		THe grid point of the absorb boundary condtion at each side
+	nt		THe number of the time step
+	dt		The stepsize of the time
+	f0		The dominat frequency of the wavelet (default: Ricker)
+	veloread	The index of generating or reading velocity from file (0: generating layer modeling by code)
+	file_v0		The name of the velocity binary file (the first direction:z)
+	nbsou		THe number of source 
+	nbrec		The number of reciver (for each shot, it is evenly at each side of the source)
+	file_sou	THe file to read the source position
+
+Output:
+	test_trace_...	The binary file of the whole shot

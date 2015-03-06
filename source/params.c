@@ -5,7 +5,7 @@
 #include "params.h"
 
 
-void params_read( char *file, int *nx, int*nz,double *dx,double *dz, int*ne,int*nt,double *dt,double *f0,int*veloread,char *file_v0,int *nbsou, int *nbrec, char *file_sou){
+void params_read( char *file,FILE *file1, int *nx, int*nz,double *dx,double *dz, int*ne,int*nt,double *dt,double *f0,int*veloread,char *file_v0,int *nbsou, int *nbrec, char *file_sou){
 
 
   FILE *file_id;
@@ -96,6 +96,19 @@ void params_read( char *file, int *nx, int*nz,double *dx,double *dz, int*ne,int*
   free(line);
   free(head);
   free(string);
+  
 
+  fprintf(file1, "--!\tRead parameter file for 2D FD Modeling...\n");
+  fprintf(file1, "--!\t\tFull Model dimension : nz %d nx %d \n", *nz, *nx);
+  fprintf(file1, "--!\t\tFull Model discretization [m]: dz %lf dx %lf \n", *dz, *dx);
+  fprintf(file1, "--!\t\tTime step number %d\n",*nt);
+  fprintf(file1, "--!\t\tTime step %lf\n", *dt);
+  fprintf(file1, "--!\t\tSource domininat frenquency %lf\n", *f0);
+  fprintf(file1, "--!\t\tTaper dimension: ne %d\n", *ne);
+  if(*veloread==1) fprintf(file1, "--!\t\tRead P-wave velocity from %s\n", file_v0);
+  if(*veloread==0) fprintf(file1, "--!\t\tGenerate P-wave velocity file in the code\n");
+  fprintf(file1, "--!\t\tNumber of source %d\n", *nbsou);
+  fprintf(file1, "--!\t\tNumber of reciver %d\n", *nbrec);
+  fprintf(file1, "--!\t\tRead  source coordinate from %s\n", file_sou);
 
 }

@@ -19,7 +19,7 @@ void FM_Acou2D( FILE *file1, int nx, int nz, double dx, double dz, double dt, in
   double t=0.0;
   double* recs = malloc(nt*nbrec*sizeof(double));
   double pi = 3.14159265358979323846; 
-  double cst = 1/sqrt(2.0*pi);
+  //double cst = 1/sqrt(2.0*pi);
   // p wavefields
   double* u1 = malloc( ndims*sizeof(double) );
   double* u2 = malloc( ndims*sizeof(double) );

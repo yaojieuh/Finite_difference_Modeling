@@ -25,14 +25,13 @@ void init_acou_layer(FILE *filefprintf, double dx,double dz, int nx, int nz, flo
  
  int i, j;
  long index;
- double x,z;
 
 // int nzl1= 237, nzl2=504;
  int nzl1= 30, nzl2=55;
  int ndims=nx*nz;
  
 
- fprintf(filefprintf, "--!\tAcoustic media initialization three layers ...\n");
+ fprintf(filefprintf, "--!\tAcoustic velocity initialization three layers ...\n");
  fprintf(filefprintf, "--!\t                                \n");
 	FILE* file2;  
   	char fname2[100];
@@ -40,9 +39,7 @@ void init_acou_layer(FILE *filefprintf, double dx,double dz, int nx, int nz, flo
   	sprintf(fname2,"Velocitymodel");
   	file2= fopen( fname2, "w" );
 	  for(j=0; j<nx; j++){
-		x=j*dx;
 	      	for(i=0; i<nz; i++) {
-			z=i*dz;
 			index= j*nz+i;
 			if (i<nzl1){
 				vel[index]=1500;
@@ -67,9 +64,11 @@ void init_acou_layer(FILE *filefprintf, double dx,double dz, int nx, int nz, flo
 
 void init_acous_vel_read(FILE *filefprintf,char *file_v0, double dx,double dz, int nx, int nz, float *vel){
 
- int ndims=nx*nz;
  
+ fprintf(filefprintf, "--!\tReading velocity ...\n");
+ fprintf(filefprintf, "--!\t                                \n");
 
+ int ndims=nx*nz;
  FILE* file4;
  char fname4[100];
  sprintf(fname4,file_v0);
@@ -95,7 +94,6 @@ void init_acou_vel_ext(FILE *filefprintf, double dx,double dz, int nx, int nz,in
  
  int ix, iz;
  int index, index2;
- double x,z;
  int nz2=2*nz-1;
  int nxe=nx+2*ne;
  int nze=nz2+2*ne;
@@ -103,14 +101,14 @@ void init_acou_vel_ext(FILE *filefprintf, double dx,double dz, int nx, int nz,in
  int ndims2=nxe*nze;
  
 
- fprintf(filefprintf, "--!\tAcoustic media extention ...\n");
+ fprintf(filefprintf, "--!\tAcoustic velocity extention ...\n");
  fprintf(filefprintf, "--!\t                                \n");
 
- FILE* file2;  
- char fname2[100];
+ //FILE* file2;  
+ //char fname2[100];
 
- sprintf(fname2,"Velocitymodel_ext");
- file2= fopen( fname2, "w" );
+ //sprintf(fname2,"Velocitymodel_ext");
+ //file2= fopen( fname2, "w" );
 	  for(ix=0; ix<nxe; ix++){
 	      	for(iz=0; iz<nze; iz++) {
 			index= ix*nze+iz;
@@ -147,12 +145,13 @@ void init_acou_vel_ext(FILE *filefprintf, double dx,double dz, int nx, int nz,in
 	 		
 	 	 }		
 	}
-          if( fwrite( velext, sizeof(float), ndims2, file2 ) != (size_t) ndims2)
+     /*if( fwrite( velext, sizeof(float), ndims2, file2 ) != (size_t) ndims2)
      {
 	printf(" Can't output data to file \n");
 	exit(1);
      }    
 	fclose(file2);
+	*/
 }
 
 void init_source_ricker_fwps(FILE *filefprintf, int nt, double dt, double f0, double *source){
@@ -257,8 +256,9 @@ void init_source_cord(FILE *file1, int nbsou,int nx,int nz,int ne, char *file_so
    char fname2[100];
    sprintf(fname2,file_sou);
    file2 = fopen(fname2,"r");
-   fprintf(file1," Read source coordinate from %s \n",fname2);	
-   int i,readtemp;
+   fprintf(file1,"--!\t Read source coordinate from %s \n",fname2);	
+   fprintf(file1, "--!\t                                   \n");
+   int i=0,readtemp;
    int* readdat = malloc((2*nbsou+1)*sizeof(int));
 	while (!feof(file2))
 	{
